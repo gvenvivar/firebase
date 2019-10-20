@@ -20,3 +20,12 @@
 .App-link {
   color: #09d3ac;
 }
+
+.auntWrap span{
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.auntWrap span.active{
+  text-decoration: underline;
+}

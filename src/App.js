@@ -1,24 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+// import FirebaseContext from './firebase/context.js';
+import AddnewDish from './components/addDishForm'
+import MenuList from './components/menuList'
+import AuntBlock from './components/auntBlock'
+import firebase from './firebase/firebase.js';
 
 function App() {
+  const [user, setUser] = useState(false);
+  console.log(user);
+
+  const changeUser = (user)=>{
+    setUser(user);
+  }
+
+  const signOut = (e)=>{
+    e.preventDefault();
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      setUser(false);
+      console.log('signOut successful')
+    }).catch(function(error) {
+      // An error happened.
+
+      console.log(console.error())
+    });
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>Test</h2>
+      {user
+        ?<div><p>{user}</p><button onClick={signOut}>Sign Out</button></div>
+        :<AuntBlock changeUser={changeUser}/>}
+      <AddnewDish />
+      <MenuList />
     </div>
   );
 }
